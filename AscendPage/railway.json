@@ -9,8 +9,3 @@
     "restartPolicyType": "ON_FAILURE"
   }
 }
-```
-
-Or delete `railway.json` entirely and try creating a `Procfile` instead (no file extension):
-```
-web: npm start

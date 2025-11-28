@@ -84,7 +84,7 @@ export default function HeroSection() {
             <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
               {[
                 { icon: Award, label: "Expert Tutors", value: "3" },
-                { icon: TrendingUp, label: "Success Rate", value: "98%" },
+                { icon: TrendingUp, label: "Success Rate", value: "100%" },
                 { icon: Zap, label: "Core Subjects", value: "3" },
               ].map((stat) => (
                 <div

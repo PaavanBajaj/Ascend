@@ -55,7 +55,7 @@ export default function BusinessDetailsSection() {
   ];
 
   const pricing = [
-    { icon: MapPin, type: "In-Person Sessions", price: "$30", period: "per hour", description: "Face-to-face learning at your location" },
+    { icon: MapPin, type: "In-Person Sessions", price: "$30", period: "per hour", description: "Face-to-face learning at tutor's location" },
     { icon: Monitor, type: "Online Sessions", price: "$20", period: "per hour", description: "Convenient virtual tutoring from anywhere" },
   ];
 

@@ -28,7 +28,10 @@ export default function ScheduleSession() {
           sessions: {
             $: {
               where: {
-                userEmail: user.email,
+                or: [
+                  { userEmail: user.email },
+                  { status: "approved" }
+                ]
               },
             },
           },
@@ -36,7 +39,8 @@ export default function ScheduleSession() {
       : null
   );
 
-  const userSessions = data?.sessions || [];
+  const userSessions = data?.sessions?.filter(s => s.userEmail === user.email) || [];
+  const allApprovedSessions = data?.sessions?.filter(s => s.status === "approved") || [];
   const upcomingSessions = userSessions.filter((s) => s.status === "approved");
   const pendingSessions = userSessions.filter((s) => s.status === "pending");
 
@@ -160,19 +164,27 @@ export default function ScheduleSession() {
                   <div>
                     <p className="text-sm text-muted-foreground mb-3">Available Times for {selectedDay}</p>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                      {TIME_SLOTS[selectedDay].map((time) => (
-                        <Button
-                          key={time}
-                          variant={selectedTime === time ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => setSelectedTime(time)}
-                          className="toggle-elevate"
-                          data-testid={`button-time-${time.replace(/[: ]/g, "-").toLowerCase()}`}
-                        >
-                          <Clock className="w-4 h-4 mr-2" />
-                          {time}
-                        </Button>
-                      ))}
+                      {TIME_SLOTS[selectedDay].map((time) => {
+                        const isBooked = allApprovedSessions.some(
+                          session => session.day === selectedDay && session.time === time
+                        );
+                        
+                        return (
+                          <Button
+                            key={time}
+                            variant={selectedTime === time ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => setSelectedTime(time)}
+                            className="toggle-elevate"
+                            disabled={isBooked}
+                            data-testid={`button-time-${time.replace(/[: ]/g, "-").toLowerCase()}`}
+                          >
+                            <Clock className="w-4 h-4 mr-2" />
+                            {time}
+                            {isBooked && <XCircle className="w-4 h-4 ml-2 text-red-500" />}
+                          </Button>
+                        );
+                      })}
                     </div>
                   </div>
                 )}

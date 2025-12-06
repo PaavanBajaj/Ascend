@@ -6,13 +6,14 @@ import { useToast } from "@/hooks/use-toast";
 import { Calendar, Clock, CheckCircle, XCircle, Loader2, LogOut } from "lucide-react";
 import { id } from "@instantdb/react";
 
-const DAYS = ["Sunday", "Saturday", "Tuesday"] as const;
+const DAYS = ["Sunday", "Saturday", "Tuesday", "Friday"] as const;
 type Day = typeof DAYS[number];
 
 const TIME_SLOTS: Record<Day, string[]> = {
-  Sunday: ["10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"],
+  Sunday: ["10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM"],
   Saturday: ["10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM"],
   Tuesday: ["5:00 PM", "6:00 PM", "7:00 PM"],
+  Friday: ["5:00 PM", "6:00 PM", "7:00 PM"],
 };
 
 export default function ScheduleSession() {
